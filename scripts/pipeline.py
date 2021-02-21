@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 '''
-@File    :   pipeline2.py    
+@File    :   pipeline.py
 @Contact :   760320171@qq.com
 @License :   (C)Copyright 2019-2021, ISTBI, Fudan University
 

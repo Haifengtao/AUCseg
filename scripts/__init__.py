@@ -11,5 +11,3 @@
 '''
 
 # import lib
-import seg_full_tumor
-import seg_all_labels

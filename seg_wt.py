@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 '''
-@File    :   seg_full_tumor.py    
+@File    :   seg_wt.py
 @Contact :   760320171@qq.com
 @License :   (C)Copyright 2019-2021, ISTBI, Fudan University
 
@@ -14,7 +14,7 @@
 import sys
 import os
 
-sys.path.append('../')
+sys.path.append('/')
 from utils import file_io
 from utils import img_utils
 import numpy as np
@@ -56,12 +56,14 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--save_dir', nargs='?',
                         default='None',
                         help='the path of segmentation image!')
-    parser.add_argument('-fc', '--full_seg_cluster', nargs='?',
+    parser.add_argument('-fc', '--n_cluster1', nargs='?',
                         default='5',
                         help='full tumor segmentation clustering number')
-    parser.add_argument('-mode', '--cluster_mode', default='Kmeans', nargs='?',
+    parser.add_argument('-mode', '--cluster_mode', default='GMM', nargs='?',
                         help='enhancing segmentation clustering number')
     args = parser.parse_args()
+
+    # python seg_wt.py -flair ./data/Brats18_TCIA02_151_1/Brats18_TCIA02_151_1_flair.nii.gz -s ./data/Brats18_TCIA02_151_1/wt.nii.gz -fc 4
     seg_pipeline(args.flair_dir, args.save_dir,
-                 f_cluster=args.full_seg_cluster,
+                 f_cluster=args.n_cluster1,
                  c_method=args.cluster_mode)

@@ -13,7 +13,7 @@
 # import lib
 import sys
 
-sys.path.append('../')
+sys.path.append('/')
 from utils import file_io
 import os
 from utils import img_utils
@@ -64,7 +64,7 @@ def seg_pipeline(t1ce_dir, flair_dir, save_dir, bbox=None, nc_seg_mode='cc', t2_
         t2_img, affine_t2, hdr_t2 = file_io.read_nii(t2_dir)
         t2_roi = img_utils.normalize_0_1(img_utils.crop_img(img_utils.crop_img(t2_img, st1, et1), st_2, et_2))
         t2_roi[full_tumor_roi != 1] = 0
-        core_tumor = img_utils.clustering_img([t2_roi, ], t2_cluster, method=c_method)
+        core_tumor = img_utils.clustering_img([t2_roi, ], int(t2_cluster), method=c_method)
         # integrate mask
         final_mask = np.zeros(full_tumor_roi.shape)
         final_mask[full_tumor_roi == 1] = 2
@@ -92,28 +92,33 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--save_dir', nargs='?',
                         default='None',
                         help='The path to save the segmented image!')
-    parser.add_argument('-fc', '--full_seg_cluster', nargs='?',
+    parser.add_argument('-fc', '--n_cluster1', nargs='?',
                         default='5',
                         help='Full tumor segmentation clustering number')
-    parser.add_argument('-ec', '--ec_seg_cluster', default='3', nargs='?',
+    parser.add_argument('-ec', '--n_cluster2', default='3', nargs='?',
                         help='Enhancing segmentation clustering number')
-    parser.add_argument('-cm', '--cluster_method', default='Kmeans', nargs='?',
+    parser.add_argument('-cm', '--cluster_method', default='GMM', nargs='?',
                         help='Clustering method, including Kmeans, MiniBatchKMeans, GMM, FCM')
-    parser.add_argument('-bbox', '--bbox', default='None', nargs='?',
+    parser.add_argument('-bbox', '--bbox', default=None, nargs='?',
                         help='The bounding box to crop the raw data!')
     parser.add_argument('-nc_seg_mode', '--nc_seg_mode', default='cc', nargs='?',
                         help='The necrotic region segmentation pipeline,including cc,t2. if you choose t2, the input '
                              't2 should not be None!')
     parser.add_argument('-t2', '--t2_dir', default='None', nargs='?',
                         help='The path of t2 image!')
-    parser.add_argument('-t2_n', '--t2_n_cluster', default='None', nargs='?',
+    parser.add_argument('-t2_n', '--n_cluster3', default='None', nargs='?',
                         help='The path of t2 image!')
     args = parser.parse_args()
+
+    # python seg_all_labels.py -t1ce ./data/Brats18_TCIA02_151_1/Brats18_TCIA02_151_1_t1ce.nii.gz -flair ./data/Brats18_TCIA02_151_1/Brats18_TCIA02_151_1_flair.nii.gz -s ./data/Brats18_TCIA02_151_1/seg_all.nii.gz -fc 4 -ec 3 -nc_seg_mode t2 -t2 ./data/Brats18_TCIA02_151_1/Brats18_TCIA02_151_1_t2.nii.gz -t2_n 5
+    # python seg_all_labels.py -t1ce ./data/Brats18_TCIA02_171_1/Brats18_TCIA02_171_1_t1ce.nii.gz -flair ./data/Brats18_TCIA02_171_1/Brats18_TCIA02_171_1_flair.nii.gz -s ./data/Brats18_TCIA02_171_1/seg_all.nii.gz -fc 9 -ec 3 -nc_seg_mode cc
+    # python seg_all_labels.py -t1ce ./data/Brats18_TCIA01_231_1/Brats18_TCIA01_231_1_t1ce.nii.gz -flair ./data/Brats18_TCIA01_231_1/Brats18_TCIA01_231_1_flair.nii.gz -s ./data/Brats18_TCIA01_231_1/seg_all.nii.gz -fc 3 -ec 3 -nc_seg_mode cc
+
     seg_pipeline(args.t1ce_dir, args.flair_dir, args.save_dir,
-                 f_cluster=args.full_seg_cluster,
-                 ec_cluster=args.ec_seg_cluster,
+                 f_cluster=args.n_cluster1,
+                 ec_cluster=args.n_cluster2,
                  c_method=args.cluster_method,
                  bbox=args.bbox,
                  nc_seg_mode=args.nc_seg_mode,
                  t2_dir=args.t2_dir,
-                 t2_cluster=args.t2_n_cluster,)
+                 t2_cluster=args.n_cluster3,)
