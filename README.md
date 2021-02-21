@@ -4,7 +4,6 @@ This is an automatically unsupervised clustering toolbox for 3D-segmentation of 
 
 ## 2. Preprocess 
 ### 2.1 Skull stripping.
-<<<<<<< HEAD
 Skull will impact the segmentation result.You can do this step by FSL using the folowing command. 
 ```shell
 bet <input> <output> [options]
@@ -37,16 +36,8 @@ if you just need the whole tumor
 ```shell
 python seg_wt.py -flair ./data/Brats18_TCIA02_151_1/Brats18_TCIA02_151_1_flair.nii.gz -s ./data/Brats18_TCIA02_151_1/wt.nii.gz -fc 4
 ```
-=======
-Skull will impact the segmentation result.
-### 2.2 Registration 
-Our method will use the multi-parametric MR images, so we need register them. In theory, rigid registration is enough.
 
-## 3. Requirements
-None
-## 4. How to use
-easy
-
->>>>>>> 49a88474dc1e19a0a8a67fd2ab9fa46bf4187b3a
 ## 5. How to cite
 None
+
+
