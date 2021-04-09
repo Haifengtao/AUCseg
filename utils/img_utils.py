@@ -3,7 +3,7 @@
 '''
 @File    :   img_utils.py    
 @Contact :   760320171@qq.com
-@License :   (C)Copyright 2019-2021, ISTBI, Fudan University
+@License :   (C)Copyright 2019-2021, ISTBI
 
 @Modify Time      @Author    @Version    @Desciption
 ------------      -------    --------    -----------
