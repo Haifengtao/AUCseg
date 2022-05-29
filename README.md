@@ -38,6 +38,6 @@ python seg_wt.py -flair ./data/Brats18_TCIA02_151_1/Brats18_TCIA02_151_1_flair.n
 ```
 
 ## 5. How to cite
-None
 
+Zhao B, Ren Y, Yu Z, et al. AUCseg: An automatically unsupervised clustering toolbox for 3D-segmentation of high-grade gliomas in multi-parametric MR images[J]. Frontiers in Oncology, 2021, 11: 2244.
 
